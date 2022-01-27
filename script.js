@@ -53,7 +53,7 @@ btnScrollTo.addEventListener('click', function (e) {
 //   });
 // });
 
-// event delegation (reducing call back function to only specific clicked elements)
+// event delegation (reducing call back function to only specific clicked child element)
 // step 1: add event listener to common parent element
 // step 2: Find child element that originated the event
 
