@@ -41,14 +41,33 @@ btnScrollTo.addEventListener('click', function (e) {
 });
 
 // page navigation
-Array.from(document.querySelectorAll('.nav__link')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
+// Array.from(document.querySelectorAll('.nav__link')).forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth',
+//     });
+//   });
+// });
+
+// event delegation (reducing call back function to only specific clicked elements)
+// step 1: add event listener to common parent element
+// step 2: Find child element that originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log(e.target);
+
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
     e.preventDefault();
 
-    const id = this.getAttribute('href');
-    console.log(id);
+    const id = e.target.getAttribute('href');
+    // console.log(id);
     document.querySelector(id).scrollIntoView({
       behavior: 'smooth',
     });
-  });
+  }
 });
