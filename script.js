@@ -107,49 +107,34 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-// menu link fade animation
-navBar.addEventListener('mouseover', function (e) {
+// menu navigation links fade animation
+const hoverHandler = function (e, opacity) {
   if (e.target.classList.contains('nav__link')) {
     const hoveredLink = e.target;
-    console.log(hoveredLink);
+    // console.log(hoveredLink);
 
     const hoveredLinksiblings = hoveredLink
       .closest('.nav')
       .querySelectorAll('.nav__link');
-    console.log(hoveredLinksiblings);
+    // console.log(hoveredLinksiblings);
 
     const logo = hoveredLink.closest('.nav').querySelector('img');
-    console.log(logo);
+    // console.log(logo);
 
     Array.from(hoveredLinksiblings).forEach(function (el) {
       if (el !== hoveredLink) {
-        el.style.opacity = 0.5;
+        el.style.opacity = opacity;
 
-        logo.style.opacity = 0.5;
+        logo.style.opacity = opacity;
       }
     });
   }
+};
+
+navBar.addEventListener('mouseover', function (e) {
+  hoverHandler(e, 0.5);
 });
 
 navBar.addEventListener('mouseout', function (e) {
-  if (e.target.classList.contains('nav__link')) {
-    const hoveredLink = e.target;
-    console.log(hoveredLink);
-
-    const hoveredLinksiblings = hoveredLink
-      .closest('.nav')
-      .querySelectorAll('.nav__link');
-    console.log(hoveredLinksiblings);
-
-    const logo = hoveredLink.closest('.nav').querySelector('img');
-    console.log(logo);
-
-    Array.from(hoveredLinksiblings).forEach(function (el) {
-      if (el !== hoveredLink) {
-        el.style.opacity = 1;
-
-        logo.style.opacity = 1;
-      }
-    });
-  }
+  hoverHandler(e, 1);
 });
