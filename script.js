@@ -71,3 +71,35 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     });
   }
 });
+
+// Tabbed components
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// event delegation to target specific button
+tabsContainer.addEventListener('click', function (e) {
+  const clickedBtn = e.target.closest('.operations__tab');
+  // console.log(clickedBtn);
+
+  // remove active class on all tabs btn before setting active class to clicked btn
+  Array.from(tabs).forEach(function (tab) {
+    tab.classList.remove('operations__tab--active');
+  });
+
+  if (clickedBtn) {
+    clickedBtn.classList.add('operations__tab--active');
+  }
+
+  // remove content area of all tabs
+  Array.from(tabsContent).forEach(function (content) {
+    content.classList.remove('operations__content--active');
+  });
+
+  // activate content area of clicked tab
+  document
+    .querySelector(
+      `.operations__content--${clickedBtn.getAttribute('data-tab')}`
+    )
+    .classList.add('operations__content--active');
+});
