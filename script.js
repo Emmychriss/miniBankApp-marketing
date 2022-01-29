@@ -9,6 +9,12 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+const navBar = document.querySelector('.nav');
+
 // Modal window
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -73,9 +79,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // Tabbed components
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContent = document.querySelectorAll('.operations__content');
 
 // event delegation to target specific button
 tabsContainer.addEventListener('click', function (e) {
@@ -102,4 +105,51 @@ tabsContainer.addEventListener('click', function (e) {
       `.operations__content--${clickedBtn.getAttribute('data-tab')}`
     )
     .classList.add('operations__content--active');
+});
+
+// menu link fade animation
+navBar.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const hoveredLink = e.target;
+    console.log(hoveredLink);
+
+    const hoveredLinksiblings = hoveredLink
+      .closest('.nav')
+      .querySelectorAll('.nav__link');
+    console.log(hoveredLinksiblings);
+
+    const logo = hoveredLink.closest('.nav').querySelector('img');
+    console.log(logo);
+
+    Array.from(hoveredLinksiblings).forEach(function (el) {
+      if (el !== hoveredLink) {
+        el.style.opacity = 0.5;
+
+        logo.style.opacity = 0.5;
+      }
+    });
+  }
+});
+
+navBar.addEventListener('mouseout', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const hoveredLink = e.target;
+    console.log(hoveredLink);
+
+    const hoveredLinksiblings = hoveredLink
+      .closest('.nav')
+      .querySelectorAll('.nav__link');
+    console.log(hoveredLinksiblings);
+
+    const logo = hoveredLink.closest('.nav').querySelector('img');
+    console.log(logo);
+
+    Array.from(hoveredLinksiblings).forEach(function (el) {
+      if (el !== hoveredLink) {
+        el.style.opacity = 1;
+
+        logo.style.opacity = 1;
+      }
+    });
+  }
 });
