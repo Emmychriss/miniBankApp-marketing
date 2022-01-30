@@ -166,10 +166,38 @@ const staticNavBar = function (entries) {
   });
 };
 
-const observerOptions = {
+const navBarObserverOptions = {
   root: null,
   threshold: 0,
   rootMargin: `-${navBarHeight}px`,
 };
-const headerObserver = new IntersectionObserver(staticNavBar, observerOptions);
+const headerObserver = new IntersectionObserver(
+  staticNavBar,
+  navBarObserverOptions
+);
 headerObserver.observe(header);
+
+// show section after scroll approach
+const allSections = document.querySelectorAll('.section');
+const showSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (entry.isIntersecting === true) {
+    entry.target.classList.remove('section--hidden');
+
+    observer.unobserve(entry.target);
+  }
+};
+const sectionObserverOptions = {
+  root: null,
+  threshold: 0.15,
+};
+const sectionObserver = new IntersectionObserver(
+  showSection,
+  sectionObserverOptions
+);
+Array.from(allSections).forEach(section => {
+  section.classList.add('section--hidden');
+  sectionObserver.observe(section);
+});
