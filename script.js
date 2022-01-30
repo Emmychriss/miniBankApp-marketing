@@ -104,8 +104,9 @@ observeScrollUpBtn.observe(header);
 
 // step2 : scroll up into view when the btn is clicked
 scrollUpBtn.addEventListener('click', function (e) {
-  navBar.scrollIntoView({
-    behavior: 'smooth',
+  window.scrollTo({
+    top: 0,
+    behaviour: 'smooth',
   });
 });
 
