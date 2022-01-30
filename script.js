@@ -80,7 +80,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 // Tabbed components
 
-// event delegation to target specific button
+// event delegation to target specific tab button
 tabsContainer.addEventListener('click', function (e) {
   const clickedBtn = e.target.closest('.operations__tab');
   // console.log(clickedBtn);
@@ -107,7 +107,7 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-// menu navigation links fade animation
+// navigation links hover fade animation
 const hoverHandler = function (e, opacity) {
   if (e.target.classList.contains('nav__link')) {
     const hoveredLink = e.target;
@@ -132,9 +132,44 @@ const hoverHandler = function (e, opacity) {
 };
 
 navBar.addEventListener('mouseover', function (e) {
-  hoverHandler(e, 0.5);
+  hoverHandler(e, 0.6);
 });
 
 navBar.addEventListener('mouseout', function (e) {
   hoverHandler(e, 1);
 });
+
+// static navigation: Intersection observer API
+
+// const observerCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+// const observerOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+
+// const observer = new IntersectionObserver(observerCallback, observerOptions);
+// observer.observe(document.querySelector('#section--1'));
+
+const header = document.querySelector('header');
+const navBarHeight = navBar.getBoundingClientRect().height;
+const staticNavBar = function (entries) {
+  entries.forEach(entry => {
+    // console.log(entry);
+
+    if (entry.isIntersecting !== true) {
+      navBar.classList.add('sticky');
+    } else navBar.classList.remove('sticky');
+  });
+};
+
+const observerOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navBarHeight}px`,
+};
+const headerObserver = new IntersectionObserver(staticNavBar, observerOptions);
+headerObserver.observe(header);
