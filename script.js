@@ -14,6 +14,9 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContent = document.querySelectorAll('.operations__content');
 
 const navBar = document.querySelector('.nav');
+const navBarHeight = navBar.getBoundingClientRect().height;
+
+const header = document.querySelector('header');
 
 // Modal window
 const openModal = function () {
@@ -76,6 +79,34 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
       behavior: 'smooth',
     });
   }
+});
+
+// smooth scroll up effect
+
+// step1 : observe and make scroll up btn visible after passing the header element
+const scrollUpBtn = document.querySelector('.scrollUp__btn');
+const scrollUp = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
+
+  if (entry.isIntersecting === true) {
+    scrollUpBtn.classList.add('hidden');
+  } else {
+    scrollUpBtn.classList.remove('hidden');
+  }
+};
+const scrollUpOptions = {
+  root: null,
+  threshold: 0,
+};
+const observeScrollUpBtn = new IntersectionObserver(scrollUp, scrollUpOptions);
+observeScrollUpBtn.observe(header);
+
+// step2 : scroll up into view when the btn is clicked
+scrollUpBtn.addEventListener('click', function (e) {
+  navBar.scrollIntoView({
+    behavior: 'smooth',
+  });
 });
 
 // Tabbed components
@@ -154,8 +185,6 @@ navBar.addEventListener('mouseout', function (e) {
 // const observer = new IntersectionObserver(observerCallback, observerOptions);
 // observer.observe(document.querySelector('#section--1'));
 
-const header = document.querySelector('header');
-const navBarHeight = navBar.getBoundingClientRect().height;
 const staticNavBar = function (entries) {
   entries.forEach(entry => {
     // console.log(entry);
@@ -181,7 +210,7 @@ headerObserver.observe(header);
 const allSections = document.querySelectorAll('.section');
 const showSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (entry.isIntersecting === true) {
     entry.target.classList.remove('section--hidden');
@@ -201,3 +230,5 @@ Array.from(allSections).forEach(section => {
   section.classList.add('section--hidden');
   sectionObserver.observe(section);
 });
+
+// Add button icon to scroll up after reaching first section
