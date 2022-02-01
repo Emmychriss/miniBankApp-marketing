@@ -141,9 +141,10 @@ tabsContainer.addEventListener('click', function (e) {
 
 // navigation links hover fade animation
 const hoverHandler = function (e, opacity) {
-  if (e.target.classList.contains('nav__link')) {
+  const openModal = e.target.classList.contains('btn--show-modal');
+
+  if (e.target.classList.contains('nav__link') && !openModal) {
     const hoveredLink = e.target;
-    // console.log(hoveredLink);
 
     const hoveredLinksiblings = hoveredLink
       .closest('.nav')
@@ -232,4 +233,26 @@ Array.from(allSections).forEach(section => {
   sectionObserver.observe(section);
 });
 
+// lazy loading images
+const imageTargets = Array.from(document.querySelectorAll('img[data-src]'));
+console.log(imageTargets);
+
+const imageTargetsFn = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+};
+
+const imageTargetsOptn = {
+  root: null,
+  threshold: 0,
+};
+
+const imageObserver = new IntersectionObserver(
+  imageTargetsFn,
+  imageTargetsOptn
+);
+
+imageTargets.forEach(image => imageObserver.observe(image));
+
 // Add button icon to scroll up after reaching first section
+// Add mouse enter effect on nav links to show list
