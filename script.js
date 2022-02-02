@@ -239,12 +239,22 @@ console.log(imageTargets);
 
 const imageTargetsFn = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
-};
 
+  if (!entry.isIntersecting) return; // do nothing if entry.isIntersecting is false
+
+  // if entry.isIntersecting is true, replace img src with data-src
+  entry.target.src = entry.target.getAttribute('data-src');
+
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
 const imageTargetsOptn = {
   root: null,
   threshold: 0,
+  rootMargin: '+200px',
 };
 
 const imageObserver = new IntersectionObserver(
