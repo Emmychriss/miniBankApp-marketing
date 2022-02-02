@@ -49,19 +49,6 @@ btnScrollTo.addEventListener('click', function (e) {
   });
 });
 
-// page navigation
-// Array.from(document.querySelectorAll('.nav__link')).forEach(function (el) {
-//   el.addEventListener('click', function (e) {
-//     e.preventDefault();
-
-//     const id = this.getAttribute('href');
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({
-//       behavior: 'smooth',
-//     });
-//   });
-// });
-
 // event delegation (reducing call back function to only specific clicked child element)
 // step 1: add event listener to common parent element
 // step 2: Find child element that originated the event
@@ -82,7 +69,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // smooth scroll up effect
-
 // step1 : observe and make scroll up btn visible after passing the header element
 const scrollUpBtn = document.querySelector('.scrollUp__btn');
 const scrollUp = function (entries, observer) {
@@ -172,21 +158,6 @@ navBar.addEventListener('mouseout', function (e) {
   hoverHandler(e, 1);
 });
 
-// static navigation: Intersection observer API
-
-// const observerCallback = function (entries, observer) {
-//   entries.forEach(entry => {
-//     console.log(entry);
-//   });
-// };
-// const observerOptions = {
-//   root: null,
-//   threshold: [0, 0.2],
-// };
-
-// const observer = new IntersectionObserver(observerCallback, observerOptions);
-// observer.observe(document.querySelector('#section--1'));
-
 const staticNavBar = function (entries) {
   entries.forEach(entry => {
     // console.log(entry);
@@ -235,7 +206,6 @@ Array.from(allSections).forEach(section => {
 
 // lazy loading images
 const imageTargets = Array.from(document.querySelectorAll('img[data-src]'));
-console.log(imageTargets);
 
 const imageTargetsFn = function (entries, observer) {
   const [entry] = entries;
