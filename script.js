@@ -221,6 +221,7 @@ const imageTargetsFn = function (entries, observer) {
 
   observer.unobserve(entry.target);
 };
+
 const imageTargetsOptn = {
   root: null,
   threshold: 0,
@@ -233,6 +234,12 @@ const imageObserver = new IntersectionObserver(
 );
 
 imageTargets.forEach(image => imageObserver.observe(image));
+
+// slider
+const slides = document.querySelectorAll('.slide');
+slides.forEach((slide, index) => {
+  slide.style.transform = `translateX(${index * 100})`;
+});
 
 // Add button icon to scroll up after reaching first section
 // Add mouse enter effect on nav links to show list
