@@ -162,7 +162,22 @@ img {
 }
 
 .nav__item {
+  margin-top: 3rem;
+  margin-left: 8rem;
+}
+
+.nav__link--btnOpenModal {
+  /* margin-top: 1rem; */
   margin-left: 4rem;
+}
+
+.nav__link--dropdown {
+  margin-top: 0;
+  padding: 0.4rem;
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  list-style: none;
 }
 
 .nav__link:link,
@@ -679,7 +694,6 @@ h4 {
   visibility: hidden;
   opacity: 0;
 }
-
 /* COOKIE MESSAGE */
 .cookie-message {
   display: flex;
