@@ -237,9 +237,47 @@ imageTargets.forEach(image => imageObserver.observe(image));
 
 // slider
 const slides = document.querySelectorAll('.slide');
-slides.forEach((slide, index) => {
-  slide.style.transform = `translateX(${index * 100})`;
-});
+const sliderBtnLeft = document.querySelector('.slider__btn--left');
+const sliderBtnRight = document.querySelector('.slider__btn--right');
+
+let currentSlide = 0;
+const maxSlide = slides.length;
+
+const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.4) translateX(-800px)';
+// slider.style.overflow = 'visible';
+
+const goToSlide = function (slide) {
+  slides.forEach((s, index) => {
+    s.style.transform = `translateX(${(index - slide) * 100}%)`; // 0% 100% 200% 300%
+  });
+};
+
+goToSlide(0);
+
+// next slide
+const nextSlide = function () {
+  if (currentSlide === maxSlide - 1) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+
+  goToSlide(currentSlide);
+};
+
+const previousSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  } else {
+    currentSlide--;
+  }
+
+  goToSlide(currentSlide)
+};
+
+sliderBtnRight.addEventListener('click', nextSlide);
+sliderBtnLeft.addEventListener('click', previousSlide);
 
 // Add button icon to scroll up after reaching first section
 // Add mouse enter effect on nav links to show list
