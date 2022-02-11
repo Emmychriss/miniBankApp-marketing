@@ -239,11 +239,12 @@ imageTargets.forEach(image => imageObserver.observe(image));
 const slides = document.querySelectorAll('.slide');
 const sliderBtnLeft = document.querySelector('.slider__btn--left');
 const sliderBtnRight = document.querySelector('.slider__btn--right');
+const dotsCOntainer = document.querySelector('.dots');
 
 let currentSlide = 0;
 const maxSlide = slides.length;
 
-const slider = document.querySelector('.slider');
+// const slider = document.querySelector('.slider');
 // slider.style.transform = 'scale(0.4) translateX(-800px)';
 // slider.style.overflow = 'visible';
 
@@ -273,11 +274,15 @@ const previousSlide = function () {
     currentSlide--;
   }
 
-  goToSlide(currentSlide)
+  goToSlide(currentSlide);
 };
 
 sliderBtnRight.addEventListener('click', nextSlide);
 sliderBtnLeft.addEventListener('click', previousSlide);
 
-// Add button icon to scroll up after reaching first section
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') previousSlide();
+  else if (e.key === 'ArrowRight') nextSlide();
+});
+
 // Add mouse enter effect on nav links to show list
