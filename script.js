@@ -239,7 +239,7 @@ imageTargets.forEach(image => imageObserver.observe(image));
 const slides = document.querySelectorAll('.slide');
 const sliderBtnLeft = document.querySelector('.slider__btn--left');
 const sliderBtnRight = document.querySelector('.slider__btn--right');
-const dotsCOntainer = document.querySelector('.dots');
+const dotsContainer = document.querySelector('.dots');
 
 let currentSlide = 0;
 const maxSlide = slides.length;
@@ -248,12 +248,22 @@ const maxSlide = slides.length;
 // slider.style.transform = 'scale(0.4) translateX(-800px)';
 // slider.style.overflow = 'visible';
 
+// create slider dots
+const sliderDots = function () {
+  slides.forEach(function (_, index) {
+    dotsContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${index}"></button>`
+    );
+  });
+};
+sliderDots();
+
 const goToSlide = function (slide) {
   slides.forEach((s, index) => {
     s.style.transform = `translateX(${(index - slide) * 100}%)`; // 0% 100% 200% 300%
   });
 };
-
 goToSlide(0);
 
 // next slide
@@ -283,6 +293,15 @@ sliderBtnLeft.addEventListener('click', previousSlide);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowLeft') previousSlide();
   else if (e.key === 'ArrowRight') nextSlide();
+});
+
+// event delegation for slider dots
+dotsContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    const slide = e.target.getAttribute('data-slide');
+
+    goToSlide(slide);
+  }
 });
 
 // Add mouse enter effect on nav links to show list
