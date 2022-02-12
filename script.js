@@ -259,6 +259,16 @@ const sliderDots = function () {
 };
 sliderDots();
 
+const activateDot = function (slide) {
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
+
 const goToSlide = function (slide) {
   slides.forEach((s, index) => {
     s.style.transform = `translateX(${(index - slide) * 100}%)`; // 0% 100% 200% 300%
@@ -275,6 +285,7 @@ const nextSlide = function () {
   }
 
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 const previousSlide = function () {
@@ -285,8 +296,10 @@ const previousSlide = function () {
   }
 
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
+// event handlers
 sliderBtnRight.addEventListener('click', nextSlide);
 sliderBtnLeft.addEventListener('click', previousSlide);
 
